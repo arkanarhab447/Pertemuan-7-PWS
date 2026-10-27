@@ -153,5 +153,11 @@ app.use((req, res) => {
     return errorResponse(res, 'Endpoint Tidak Ditemukan', 404)
 })
 
-
+app.use((err, req, res, next) => {
+    console.error(err)
+    if (res.headersSent) {
+        return next(err)
+    }
+    return errorResponse(res, 'Terjadi Kesalahan pada Server', 500)
+})
 
